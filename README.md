@@ -1,4 +1,4 @@
-# tokentaxrecRec
+# TokenTaxRec
 
 ![ci-stable](https://github.com/winksaville/tokentaxrec/actions/workflows/ci-stable.yml/badge.svg)
 ![ci-nightly](https://github.com/winksaville/tokentaxrec/actions/workflows/ci-nightly.yml/badge.svg)
