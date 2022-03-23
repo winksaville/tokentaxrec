@@ -239,6 +239,16 @@ impl PartialOrd for TokenTaxRec {
     }
 }
 
+impl Ord for TokenTaxRec {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        println!("cmp");
+        match self.partial_cmp(other) {
+            Some(ord) => ord,
+            None => panic!("SNH"),
+        }
+    }
+}
+
 #[cfg(test)]
 mod test {
 
@@ -361,6 +371,25 @@ mod test {
         ttr.time = 0;
         ttr_other.time = 1;
         assert!(ttr < ttr_other);
+    }
+
+    #[test]
+    fn test_ord() {
+        let ttr = TokenTaxRec::default();
+        let ttr_other = TokenTaxRec::default();
+        assert_eq!(ttr.cmp(&ttr_other), core::cmp::Ordering::Equal);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_ord_panic() {
+        let mut ttr = TokenTaxRec::default();
+        let mut ttr_other = TokenTaxRec::default();
+
+        // Panic when a field is None and the same field in other is Some
+        ttr.buy_amount = None;
+        ttr_other.buy_amount = Some(dec!(1));
+        assert_eq!(ttr.cmp(&ttr_other), core::cmp::Ordering::Equal);
     }
 
     #[test]
